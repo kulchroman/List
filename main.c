@@ -3,7 +3,6 @@ int main()
 {
     TRY
     {
-
         char *msg = malloc(MAX_MSG_SZ * sizeof(char));
         if ( msg==NULL) THROW (BAD_ALLOC);
         puts("Chose what u want to do:");
@@ -23,6 +22,7 @@ int main()
             printf("Enter message and priority (must be between %hd and %hd)!\n",MIN_PRIORITY,MAX_PRIORITY);
             printf("Message (Max %hd symbols):",MAX_MSG_SZ);
             getchar();
+            //контроль вводу
             if(gets(msg)==NULL) THROW (BAD_INPUT);
             printf("Priority:");
             if(scanf("%ud",&rate)!=1) THROW(BAD_INPUT);
@@ -32,24 +32,14 @@ int main()
                 printf("Priority:");
                 scanf("%d",&rate);
             }
-            if (!isfull())
-            {
-                cur = NewNode(rate,msg);
-                push(&head,cur);
-                print(head);
-            }
-            else
-            {
-                printf("List is full\n");
-                beg_del(&head);
-                cur = NewNode(rate,msg);
-                push(&head,cur);
-                print(head);
-            }
+            cur = NewNode(rate,msg);
+            push(&head,cur);
+            print(head);
             puts("1)enter message");
             puts("2)exit");
         }
         free(msg);
+        free_list(head);
     }
     CATCH (BAD_ALLOC)
     {

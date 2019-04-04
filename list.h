@@ -37,6 +37,7 @@ bool isfull();
 void print(node_t* const first);
 void push(node_t **head, node_t *new_node);
 void beg_del(node_t** head);
+void free_list(node_t* head);
 node_t* NewNode (int rate, char* msg);
 
 
