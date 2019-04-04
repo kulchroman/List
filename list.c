@@ -24,7 +24,11 @@ node_t* NewNode(int rate, char* msg)
     {
         node_t* new_node = (node_t*) malloc(sizeof(node_t));
         new_node->msg = malloc(sizeof(msg));
-        if (new_node==NULL || new_node->msg==NULL) THROW (BAD_ALLOC);
+        //зрозумів, до 2-го пункту може не дійти
+        //if (new_node==NULL || new_node->msg==NULL) THROW (BAD_ALLOC);
+        //спочатку батьківський об'єкт
+        if (new_node==NULL)THROW (BAD_ALLOC);
+        if (new_node->msg==NULL) THROW (BAD_ALLOC);
         if(strncpy(new_node->msg,msg,strlen(msg)+1)==NULL) THROW (BAD_INPUT);
         new_node->rate=rate;
         new_node->next=NULL;
@@ -77,8 +81,6 @@ void push(node_t **head_ref, node_t *new_node)
         free(ptr);
         --count;
     }
-
-
 }
 
 
